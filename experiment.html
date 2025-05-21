@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grammatical Illusions Experiment</title>
+    <script src="https://unpkg.com/jspsych@8.2.1"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-slider-response@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-instructions@2.1.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice@2.1.0"></script>
+    <link href="https://unpkg.com/jspsych@8.2.1/css/jspsych.css" rel="stylesheet" type="text/css" />
+    <style>
+      .jspsych-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .question {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      .confidence-container {
+        width: 100%;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body></body>
+  <script>
+    // Initialize jsPsych
+    const jsPsych = initJsPsych({
+      on_finish: function() {
+        // Display completion message and data
+        jsPsych.data.displayData();
+      }
+    });
+
+    // Randomly assign participant to time pressure or no time pressure
+    const time_pressure = Math.random() < 0.5;
+    const time_limit = time_pressure ? 4000 : null; // 4 seconds for time pressure condition
+
+    // Define stimuli
+    const easy_stimuli = [
+      {question: "How many pages are they in this book?", options: ["there are", "they are"], correct_answer: "there are"},
+      {question: "The students was studying for the exam.", options: ["students were", "students was"], correct_answer: "students were"},
+      {question: "She don't like chocolate ice cream.", options: ["She doesn't", "She don't"], correct_answer: "She doesn't"},
+      {question: "My brother have three children.", options: ["brother has", "brother have"], correct_answer: "brother has"},
+      {question: "The cats is sleeping on the couch.", options: ["cats are", "cats is"], correct_answer: "cats are"},
+      {question: "We was invited to the party.", options: ["We were", "We was"], correct_answer: "We were"},
+      {question: "He don't understand the question.", options: ["He doesn't", "He don't"], correct_answer: "He doesn't"},
+      {question: "These book belongs to me.", options: ["These books", "These book"], correct_answer: "These books"},
+      {question: "She have been working here since 2010.", options: ["She has", "She have"], correct_answer: "She has"},
+      {question: "The children is playing in the park.", options: ["children are", "children is"], correct_answer: "children are"},
+      {question: "He don't know the answer.", options: ["He doesn't", "He don't"], correct_answer: "He doesn't"},
+      {question: "This apples are delicious.", options: ["These apples", "This apples"], correct_answer: "These apples"}
+    ];
+
+    const hard_stimuli = [
+      {question: "How many animals of each kind did Moses take on the Ark?", options: ["None, it was Noah", "Two"], correct_answer: "None, it was Noah"},
+      {question: "After a plane crash, where should the survivors be buried?", options: ["Nowhere, survivors are alive", "In their hometown"], correct_answer: "Nowhere, survivors are alive"},
+      {question: "Can a man marry his widow's sister?", options: ["No, he's dead", "Yes"], correct_answer: "No, he's dead"},
+      {question: "How many pennies are in a dozen if each penny is worth two cents?", options: ["12 pennies", "6 pennies"], correct_answer: "12 pennies"},
+      {question: "What was the color of George Washington's white horse?", options: ["White", "It's a trick question"], correct_answer: "White"},
+      {question: "If a doctor gives you three pills and tells you to take one pill every half hour, how long would it take to finish all the pills?", options: ["1 hour", "1.5 hours"], correct_answer: "1 hour"},
+      {question: "A farmer had 17 sheep. All but 9 died. How many sheep are left?", options: ["9", "8"], correct_answer: "9"},
+      {question: "Some months have 31 days, others have 30 days. How many have 28 days?", options: ["All of them", "Only February"], correct_answer: "All of them"},
+      {question: "If there are 3 apples and you take away 2, how many apples do you have?", options: ["2", "1"], correct_answer: "2"},
+      {question: "Is it legal for a man to marry his widow's sister?", options: ["No, he's dead", "Yes"], correct_answer: "No, he's dead"},
+      {question: "Which weighs more: a pound of feathers or a pound of gold?", options: ["They weigh the same", "A pound of gold"], correct_answer: "They weigh the same"},
+      {question: "Two fathers and two sons went fishing. They caught 3 fish in total, which was enough for each person to have one fish. How is this possible?", options: ["There were 3 people", "There were 4 people"], correct_answer: "There were 3 people"}
+    ];
+
+    // Create practice trials
+    const practice_stimuli = [
+      {question: "The children plays in the garden.", options: ["children play", "children plays"], correct_answer: "children play"},
+      {question: "What was President Lincoln's middle name?", options: ["He didn't have one", "Abraham"], correct_answer: "He didn't have one"}
+    ];
+
+    // Add additional instructions about keyboard responses
+    const instructions = {
+      type: jsPsychInstructions,
+      pages: [
+        "<h1>Welcome to the Grammatical Illusions Experiment</h1>" +
+        "<p>In this study, you will be presented with a series of general knowledge questions, some of which may contain misleading wording.</p>" +
+        "<p>Your task is to select the correct answer from two options and then rate how confident you are in your answer.</p>",
+        
+        "<h1>Keyboard Response Instructions</h1>" +
+        "<p>For each question, you will respond using keyboard keys:</p>" +
+        "<div style='display: flex; justify-content: space-around; margin: 30px 0;'>" +
+        "  <div style='text-align: center;'>" +
+        "    <div style='font-size: 30px; font-weight: bold;'>F</div>" +
+        "    <div>Left option</div>" +
+        "  </div>" +
+        "  <div style='text-align: center;'>" +
+        "    <div style='font-size: 30px; font-weight: bold;'>K</div>" +
+        "    <div>Right option</div>" +
+        "  </div>" +
+        "</div>" +
+        "<p>After selecting your answer, you'll rate your confidence using a slider.</p>",
+        
+        "<h1>Procedure</h1>" +
+        "<p>For each question, you will:</p>" +
+        "<ol>" +
+        "<li>Read the question carefully</li>" +
+        "<li>Press 'F' for the left option or 'K' for the right option</li>" +
+        "<li>Rate your confidence in your answer on a scale from 0 (completely unsure) to 100 (completely sure)</li>" +
+        "</ol>" +
+        (time_pressure ? "<p><strong>Important: You will have only 4 seconds to respond to each question!</strong></p>" : "<p>You can take as long as you need to answer each question.</p>"),
+        
+        "<h1>Let's Begin</h1>" +
+        "<p>We'll start with a few practice questions to get you familiar with the task.</p>" +
+        "<p>Press 'Next' to continue.</p>"
+      ],
+      show_clickable_nav: true
+    };
+
+    // Function to create a trial
+    function createTrial(stimulus) {
+      return {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: function() {
+          // Determine which option should be shown on the left and right
+          const leftOption = stimulus.options[0];
+          const rightOption = stimulus.options[1];
+          
+          return `
+            <div class="question">${stimulus.question}</div>
+            <div style="display: flex; justify-content: space-around; margin-top: 30px; margin-bottom: 30px;">
+              <div style="text-align: center; border-style: dashed; border-width: 2px; border-color: #000000; margin: 5px; padding: 5px;">
+                <span style="font-size: 24px; font-weight: bold;">${leftOption}</span>
+                <p style="margin-top: 10px; font-size: 18px;">Press 'F'</p>
+              </div>
+              <div style="text-align: center; border-style: dashed; border-width: 2px; border-color: #000000; margin: 5px; padding: 5px;">
+                <span style="font-size: 24px; font-weight: bold;">${rightOption}</span>
+                <p style="margin-top: 10px; font-size: 18px;">Press 'K'</p>
+              </div>
+            </div>
+          `;
+        },
+        choices: ['f', 'k'],
+        data: {
+          task_type: "question",
+          question: stimulus.question,
+          correct_answer: stimulus.correct_answer,
+          left_option: stimulus.options[0],
+          right_option: stimulus.options[1],
+          difficulty: stimulus.difficulty
+        },
+        on_finish: function(data) {
+          // Check if the chosen option is correct
+          const chosenOption = data.response === 'f' ? data.left_option : data.right_option;
+          data.chosen_option = chosenOption;
+          data.correct = (chosenOption === stimulus.correct_answer);
+        },
+        trial_duration: time_limit,
+        on_load: function() {
+          if (time_pressure) {
+            // Display countdown timer
+            let timeLeft = Math.floor(time_limit / 1000);
+            const timerDiv = document.createElement("div");
+            timerDiv.id = "timer";
+            timerDiv.style = "position: absolute; top: 20px; right: 20px; font-size: 24px; color: red;";
+            document.querySelector(".jspsych-content").appendChild(timerDiv);
+            
+            const countdownInterval = setInterval(function() {
+              if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                return;
+              }
+              document.getElementById("timer").textContent = timeLeft + "s";
+              timeLeft -= 1;
+            }, 1000);
+          }
+        }
+      };
+    }
+
+    // Function to create confidence rating
+    function createConfidenceRating() {
+      return {
+        type: jsPsychHtmlSliderResponse,
+        stimulus: "<div style='font-size: 20px;'>How confident are you in your answer?</div>",
+        labels: ["0 - Completely Unsure", "50 - Moderately Sure", "100 - Completely Sure"],
+        min: 0,
+        max: 100,
+        slider_width: 500,
+        require_movement: true,
+        prompt: "<p>Move the slider to indicate your confidence level, then click 'Continue'</p>",
+        data: {
+          task_type: "confidence"
+        },
+        on_finish: function(data) {
+          // Calculate confidence-accuracy gap
+          const prevTrialData = jsPsych.data.get().last(2).first().values()[0];
+          data.accuracy = prevTrialData.correct ? 100 : 0;
+          data.confidence = data.response;
+          data.confidence_accuracy_gap = Math.abs(data.confidence - data.accuracy);
+          data.question = prevTrialData.question;
+          data.correct = prevTrialData.correct;
+          data.chosen_option = prevTrialData.chosen_option;
+        }
+      };
+    }
+
+    // Create practice trial timeline
+    const practice_trials = [];
+    practice_stimuli.forEach((stim, index) => {
+      stim.difficulty = index === 0 ? "easy" : "hard";
+      practice_trials.push(createTrial(stim));
+      practice_trials.push(createConfidenceRating());
+    });
+
+    // Add practice feedback
+    practice_trials.push({
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: "<p>Practice complete! Now we'll begin the main experiment.</p>" +
+                "<p>Remember to read each question carefully.</p>" +
+                (time_pressure ? "<p><strong>You'll have 4 seconds to respond to each question.</strong></p>" : "") +
+                "<p>Press any key to continue.</p>"
+    });
+
+    // Create main task stimuli by combining and shuffling easy and hard stimuli
+    const all_stimuli = [...easy_stimuli, ...hard_stimuli];
+    all_stimuli.forEach((stim, index) => {
+      stim.difficulty = index < easy_stimuli.length ? "easy" : "hard";
+    });
+
+    // Function to shuffle array
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    const shuffled_stimuli = shuffleArray([...all_stimuli]);
+
+    // Create main task timeline
+    const main_task = [];
+    shuffled_stimuli.forEach(stim => {
+      main_task.push(createTrial(stim));
+      main_task.push(createConfidenceRating());
+    });
+
+    // Debriefing
+    const debriefing = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: `
+        <h1>Study Debriefing</h1>
+        <p>Thank you for participating in our study on grammatical illusions.</p>
+        <p>Grammatical illusions occur when our brain processes language in a way that allows errors to go unnoticed. 
+        A classic example is the question "How many animals of each kind did Moses take on the Ark?" 
+        Many people answer "two" without noticing that it was Noah, not Moses, who built the ark in the biblical story.</p>
+        <p>This study investigated how time pressure affects our susceptibility to these illusions and the relationship between 
+        our confidence in our answers and our accuracy.</p>
+        <p>You were in the <strong>${time_pressure ? "time pressure" : "no time pressure"}</strong> group.</p>
+        <p>Press any key to end the experiment. Thank you!</p>
+      `,
+      post_trial_gap: 2000
+    };
+
+    // Create timeline
+    const timeline = [
+      instructions,
+      ...practice_trials,
+      ...main_task,
+      debriefing
+    ];
+
+    // Run experiment
+    jsPsych.run(timeline);
+  </script>
+</html>
