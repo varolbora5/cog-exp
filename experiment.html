@@ -30,8 +30,8 @@
     const jsPsych = initJsPsych({
       on_finish: function() {
         // Get the data from jsPsych
+        jsPsych.data.addProperties({"time_limit": time_pressure})
         const experimentData = jsPsych.data.get().json();
-        
         // Send data to server
         fetch('/submit-data', {
           method: 'POST',
@@ -57,37 +57,37 @@
 
     // Randomly assign participant to time pressure or no time pressure
     const time_pressure = Math.random() < 0.5;
-    const time_limit = time_pressure ? 4000 : null; // 4 seconds for time pressure condition
+    const time_limit = time_pressure ? 4000 : 10000; // 4 seconds for time pressure condition
 
     // Define stimuli
     const easy_stimuli = [
       {question: "How many pages are they in this book?", options: ["there are", "they are"], correct_answer: "there are"},
-      {question: "The students was studying for the exam.", options: ["students were", "students was"], correct_answer: "students were"},
-      {question: "She don't like chocolate ice cream.", options: ["She doesn't", "She don't"], correct_answer: "She doesn't"},
-      {question: "My brother have three children.", options: ["brother has", "brother have"], correct_answer: "brother has"},
-      {question: "The cats is sleeping on the couch.", options: ["cats are", "cats is"], correct_answer: "cats are"},
-      {question: "We was invited to the party.", options: ["We were", "We was"], correct_answer: "We were"},
-      {question: "He don't understand the question.", options: ["He doesn't", "He don't"], correct_answer: "He doesn't"},
-      {question: "These book belongs to me.", options: ["These books", "These book"], correct_answer: "These books"},
-      {question: "She have been working here since 2010.", options: ["She has", "She have"], correct_answer: "She has"},
-      {question: "The children is playing in the park.", options: ["children are", "children is"], correct_answer: "children are"},
-      {question: "He don't know the answer.", options: ["He doesn't", "He don't"], correct_answer: "He doesn't"},
-      {question: "This apples are delicious.", options: ["These apples", "This apples"], correct_answer: "These apples"}
+      // {question: "The students was studying for the exam.", options: ["students were", "students was"], correct_answer: "students were"},
+      // {question: "She don't like chocolate ice cream.", options: ["She doesn't", "She don't"], correct_answer: "She doesn't"},
+      // {question: "My brother have three children.", options: ["brother has", "brother have"], correct_answer: "brother has"},
+      // {question: "The cats is sleeping on the couch.", options: ["cats are", "cats is"], correct_answer: "cats are"},
+      // {question: "We was invited to the party.", options: ["We were", "We was"], correct_answer: "We were"},
+      // {question: "He don't understand the question.", options: ["He doesn't", "He don't"], correct_answer: "He doesn't"},
+      // {question: "These book belongs to me.", options: ["These books", "These book"], correct_answer: "These books"},
+      // {question: "She have been working here since 2010.", options: ["She has", "She have"], correct_answer: "She has"},
+      // {question: "The children is playing in the park.", options: ["children are", "children is"], correct_answer: "children are"},
+      // {question: "He don't know the answer.", options: ["He doesn't", "He don't"], correct_answer: "He doesn't"},
+      // {question: "This apples are delicious.", options: ["These apples", "This apples"], correct_answer: "These apples"}
     ];
 
     const hard_stimuli = [
       {question: "How many animals of each kind did Moses take on the Ark?", options: ["None, it was Noah", "Two"], correct_answer: "None, it was Noah"},
-      {question: "After a plane crash, where should the survivors be buried?", options: ["Nowhere, survivors are alive", "In their hometown"], correct_answer: "Nowhere, survivors are alive"},
-      {question: "Can a man marry his widow's sister?", options: ["No, he's dead", "Yes"], correct_answer: "No, he's dead"},
-      {question: "How many pennies are in a dozen if each penny is worth two cents?", options: ["12 pennies", "6 pennies"], correct_answer: "12 pennies"},
-      {question: "What was the color of George Washington's white horse?", options: ["White", "It's a trick question"], correct_answer: "White"},
-      {question: "If a doctor gives you three pills and tells you to take one pill every half hour, how long would it take to finish all the pills?", options: ["1 hour", "1.5 hours"], correct_answer: "1 hour"},
-      {question: "A farmer had 17 sheep. All but 9 died. How many sheep are left?", options: ["9", "8"], correct_answer: "9"},
-      {question: "Some months have 31 days, others have 30 days. How many have 28 days?", options: ["All of them", "Only February"], correct_answer: "All of them"},
-      {question: "If there are 3 apples and you take away 2, how many apples do you have?", options: ["2", "1"], correct_answer: "2"},
-      {question: "Is it legal for a man to marry his widow's sister?", options: ["No, he's dead", "Yes"], correct_answer: "No, he's dead"},
-      {question: "Which weighs more: a pound of feathers or a pound of gold?", options: ["They weigh the same", "A pound of gold"], correct_answer: "They weigh the same"},
-      {question: "Two fathers and two sons went fishing. They caught 3 fish in total, which was enough for each person to have one fish. How is this possible?", options: ["There were 3 people", "There were 4 people"], correct_answer: "There were 3 people"}
+      // {question: "After a plane crash, where should the survivors be buried?", options: ["Nowhere, survivors are alive", "In their hometown"], correct_answer: "Nowhere, survivors are alive"},
+      // {question: "Can a man marry his widow's sister?", options: ["No, he's dead", "Yes"], correct_answer: "No, he's dead"},
+      // {question: "How many pennies are in a dozen if each penny is worth two cents?", options: ["12 pennies", "6 pennies"], correct_answer: "12 pennies"},
+      // {question: "What was the color of George Washington's white horse?", options: ["White", "It's a trick question"], correct_answer: "White"},
+      // {question: "If a doctor gives you three pills and tells you to take one pill every half hour, how long would it take to finish all the pills?", options: ["1 hour", "1.5 hours"], correct_answer: "1 hour"},
+      // {question: "A farmer had 17 sheep. All but 9 died. How many sheep are left?", options: ["9", "8"], correct_answer: "9"},
+      // {question: "Some months have 31 days, others have 30 days. How many have 28 days?", options: ["All of them", "Only February"], correct_answer: "All of them"},
+      // {question: "If there are 3 apples and you take away 2, how many apples do you have?", options: ["2", "1"], correct_answer: "2"},
+      // {question: "Is it legal for a man to marry his widow's sister?", options: ["No, he's dead", "Yes"], correct_answer: "No, he's dead"},
+      // {question: "Which weighs more: a pound of feathers or a pound of gold?", options: ["They weigh the same", "A pound of gold"], correct_answer: "They weigh the same"},
+      // {question: "Two fathers and two sons went fishing. They caught 3 fish in total, which was enough for each person to have one fish. How is this possible?", options: ["There were 3 people", "There were 4 people"], correct_answer: "There were 3 people"}
     ];
 
     // Create practice trials
@@ -104,6 +104,16 @@
         "<p>In this study, you will be presented with a series of general knowledge questions, some of which may contain misleading wording.</p>" +
         "<p>Your task is to select the correct answer from two options and then rate how confident you are in your answer.</p>",
         
+        "<h># Consent</h>" +
+        "<p>This experiment has been approved by the Ethics Committee." +
+        "<p>No harm will come to you from taking part in this experiment. You have the right to stop at any time." +
+        "<p>Thank you for agreeing to take part in this experiment! Before we continue, we need your consent to the following:" +
+        "<ol>"+
+        "<li>1. I consent to performing the task online</li>" +
+        "<li>2. I understand and consent to my responses are being recorded and stored securely in a database</li>" +
+        "<li>3. I understand and consent to my responses may be used anonymously for secondary research in the future</li>"+
+        "</ol>",
+
         "<h1>Keyboard Response Instructions</h1>" +
         "<p>For each question, you will respond using keyboard keys:</p>" +
         "<div style='display: flex; justify-content: space-around; margin: 30px 0;'>" +
@@ -125,7 +135,7 @@
         "<li>Press 'F' for the left option or 'K' for the right option</li>" +
         "<li>Rate your confidence in your answer on a scale from 0 (completely unsure) to 100 (completely sure)</li>" +
         "</ol>" +
-        (time_pressure ? "<p><strong>Important: You will have only 4 seconds to respond to each question!</strong></p>" : "<p>You can take as long as you need to answer each question.</p>"),
+        (time_pressure ? "<p><strong>Important: You will have only 4 seconds to respond to each question!</strong></p>" : "<p><strong>Important: You will have only 10 seconds to respond to each question!</strong></p>"),
         
         "<h1>Let's Begin</h1>" +
         "<p>We'll start with a few practice questions to get you familiar with the task.</p>" +
@@ -174,7 +184,7 @@
         },
         trial_duration: time_limit,
         on_load: function() {
-          if (time_pressure) {
+          if (time_limit) {
             // Display countdown timer
             let timeLeft = Math.floor(time_limit / 1000);
             const timerDiv = document.createElement("div");
@@ -187,7 +197,7 @@
                 clearInterval(countdownInterval);
                 return;
               }
-              document.getElementById("timer").textContent = timeLeft + "s";
+              timerDiv.textContent = timeLeft + "s";
               timeLeft -= 1;
             }, 1000);
           }
@@ -235,7 +245,7 @@
       type: jsPsychHtmlKeyboardResponse,
       stimulus: "<p>Practice complete! Now we'll begin the main experiment.</p>" +
                 "<p>Remember to read each question carefully.</p>" +
-                (time_pressure ? "<p><strong>You'll have 4 seconds to respond to each question.</strong></p>" : "") +
+                (time_pressure ? "<p><strong>You'll have 4 seconds to respond to each question.</strong></p>" : "<p><strong>You'll have 10 seconds to respond to each question.</strong></p>") +
                 "<p>Press any key to continue.</p>"
     });
 
@@ -274,7 +284,7 @@
         Many people answer "two" without noticing that it was Noah, not Moses, who built the ark in the biblical story.</p>
         <p>This study investigated how time pressure affects our susceptibility to these illusions and the relationship between 
         our confidence in our answers and our accuracy.</p>
-        <p>You were in the <strong>${time_pressure ? "time pressure" : "no time pressure"}</strong> group.</p>
+        <p>You were in the <strong>${time_pressure ? "high time pressure" : "low time pressure"}</strong> group.</p>
         <p>Press any key to end the experiment. Thank you!</p>
       `,
       post_trial_gap: 2000
