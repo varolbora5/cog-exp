@@ -28,8 +28,29 @@
     // Initialize jsPsych
     const jsPsych = initJsPsych({
       on_finish: function() {
-        // Display completion message and data
-        jsPsych.data.displayData();
+        // Get the data from jsPsych
+        const experimentData = jsPsych.data.get().json();
+        
+        // Send data to server
+        fetch('/submit-data', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: experimentData,
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          // Still display the data for debugging (you can remove this in production)
+          jsPsych.data.displayData();
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('There was an error submitting your data. Please contact the researcher.');
+          // Still display the data so it's not lost
+          jsPsych.data.displayData();
+        });
       }
     });
 
