@@ -93,8 +93,8 @@
 
     // Create practice trials
     const practice_stimuli = [
-      {question: "A newborn has black cheeks, black eyes, black hands, black ears, black feet and so on. What color are his teeth?", options: ["White", "He has no teeth"], correct_answer: "He has no teeth"},
-      {question: "On Moses' ark there are 2 animals per species. Given that the species are 999, how many animals are there in total?", options: ["1998", "Noah, not Moses"], correct_answer: "Noah, not Moses"}
+      {question: "A newborn has black cheeks, black eyes, black hands, black ears, black feet and so on. What color are his teeth?", options: ["White", "He has no teeth"], answer: "He has no teeth"},
+      {question: "On Moses' ark there are 2 animals per species. Given that the species are 999, how many animals are there in total?", options: ["1998", "Noah, not Moses"], answer: "Noah, not Moses"}
     ];
 
     // Add additional instructions about keyboard responses
@@ -172,7 +172,7 @@
         data: {
           task_type: "question",
           question: stimulus.question,
-          correct_answer: stimulus.answer,
+          correct: stimulus.answer,
           difficulty: stimulus.difficulty
         },
         on_finish: function(data) {
