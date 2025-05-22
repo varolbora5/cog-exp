@@ -140,6 +140,7 @@
         "<ol>" +
         "<li>Read the question carefully</li>" +
         "<li>Press 'F' for the left option or 'K' for the right option</li>" +
+        "<li>You can also press the buttons to answer</li>"+
         "<li>Rate your confidence in your answer on a scale from 0 (completely unsure) to 100 (completely sure)</li>" +
         "</ol>" +
         (time_pressure ? "<p><strong>Important: You will have only 20 seconds to respond to each question!</strong></p>" : "<p><strong>Important: You will have only 40 seconds to respond to each question!</strong></p>"),
@@ -259,9 +260,16 @@
           data.question = prevTrialData.question;
           data.correct = prevTrialData.correct;
           data.chosen_option = prevTrialData.chosen_option;
+        },
+        on_load: function() {
+            document.addEventListener("keydown", (event) => {
+            if (event.key === " ") {
+              document.querySelector('button#jspsych-html-slider-response-next').click();
+            }
+            }, { once: true });
+          }
         }
       };
-    }
 
     // Create practice trial timeline
     const practice_trials = [];
@@ -276,8 +284,8 @@
       type: jsPsychInstructions,
       pages: ["<p>Practice complete! Now we'll begin the main experiment.</p>" +
                 "<p>Remember to read each question carefully.</p>" +
-                (time_pressure ? "<p><strong>You'll have 20 seconds to respond to each question.</strong></p>" : "<p><strong>You'll have 40 seconds to respond to each question.</strong></p>") +
-                "<p>Press any key to continue.</p>"],
+                (time_pressure ? "<p><strong>You'll have 20 seconds to respond to each question.</strong></p>" : "<p><strong>You'll have 40 seconds to respond to each question.</strong></p>")
+                ],
       show_clickable_nav: true
     });
 
