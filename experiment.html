@@ -93,8 +93,8 @@
 
     // Create practice trials
     const practice_stimuli = [
-      {question: "A newborn has black cheeks, black eyes, black hands, black ears, black feet and so on. What color are his teeth?", options: ["White", "He has no teeth"], correct_answer: "White"},
-      {question: "On Moses' ark there are 2 animals per species. Given that the species are 999, how many animals are there in total?", options: ["1998", "Noah, not Moses"], correct_answer: "1998"}
+      {question: "A newborn has black cheeks, black eyes, black hands, black ears, black feet and so on. What color are his teeth?", options: ["White", "He has no teeth"], correct_answer: "He has no teeth"},
+      {question: "On Moses' ark there are 2 animals per species. Given that the species are 999, how many animals are there in total?", options: ["1998", "Noah, not Moses"], correct_answer: "Noah, not Moses"}
     ];
 
     // Add additional instructions about keyboard responses
@@ -171,17 +171,17 @@
         data: {
           task_type: "question",
           question: stimulus.question,
-          correct_answer: stimulus.correct_answer,
+          correct_answer: stimulus.answer,
           difficulty: stimulus.difficulty
         },
         on_finish: function(data) {
-          // Check if the chosen option is correct
-          const chosenOption = data.response === 'f' ? data.left_option : data.right_option;
-          data.chosen_option = chosenOption;
-          data.correct = (chosenOption === stimulus.correct_answer);
+          // // Check if the chosen option is correct
+          // const chosenOption = data.response === 'f' ? data.left_option : data.right_option;
+          // data.chosen_option = chosenOption;
+          // data.correct = (chosenOption === stimulus.answer);
 
           data.correct = data.response !== null &&
-            stimulus.options[data.response] === stimulus.correct_answer;
+            stimulus.options[data.response] === stimulus.answer;
           data.missed = data.response === null;
         },
         trial_duration: time_limit,
