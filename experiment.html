@@ -161,7 +161,7 @@
           const rightOption = stimulus.options[1];
           
           return `
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh;">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh;" class="question-container">
               <div class="question" style="text-align: center;">${stimulus.question}</div>
             </div>
           `;
@@ -191,20 +191,29 @@
             let timeLeft = Math.floor(time_limit / 1000);
             const timerDiv = document.createElement("div");
             timerDiv.id = "timer";
+            // timerDiv.style = `
+            //   position: absolute;
+            //   top: 50%;
+            //   left: 50%;
+            //   transform: translateX(-50%);
+            //   font-size: 32px;
+            //   color: red;
+            //   font-weight: bold;
+            //   background: rgba(255,255,255,0.8);
+            //   padding: 8px 24px;
+            //   border-radius: 10px;
+            //   z-index: 1000;
+            // `;
             timerDiv.style = `
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translateX(-50%);
+              aling-items: center;
+              justify-content: center;
               font-size: 32px;
               color: red;
               font-weight: bold;
               background: rgba(255,255,255,0.8);
-              padding: 8px 24px;
               border-radius: 10px;
-              z-index: 1000;
-            `;
-            document.querySelector(".jspsych-content").appendChild(timerDiv);
+            `
+            document.querySelector(".question-container").appendChild(timerDiv);
 
             const countdownInterval = setInterval(function() {
               if (timeLeft <= 0) {
