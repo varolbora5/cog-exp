@@ -214,6 +214,13 @@
               border-radius: 10px;
             `
             document.querySelector(".question-container").appendChild(timerDiv);
+            document.addEventListener("keydown", function(event) {
+              if (event.key === "f") {
+                document.querySelector("div.jspsych-html-button-response-btngroup:first-child").click();
+              } else if (event.key === "k") {
+                document.querySelector("div.jspsych-html-button-response-btngroup:last-child").click();
+              }
+            });
 
             const countdownInterval = setInterval(function() {
               if (timeLeft <= 0) {
