@@ -221,7 +221,7 @@
               } else if (event.key === "k") {
                 document.querySelector('button[data-choice="1"]').click();
               }
-            });
+            }, {once: true});
 
             const countdownInterval = setInterval(function() {
               if (timeLeft <= 0) {
