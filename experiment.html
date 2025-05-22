@@ -57,61 +57,63 @@
 
     // Randomly assign participant to time pressure or no time pressure
     const time_pressure = Math.random() < 0.5;
-    const time_limit = time_pressure ? 4000 : 10000; // 4 seconds for time pressure condition
+    const time_limit = time_pressure ? 20000 : 40000; // 10 seconds for time pressure condition
 
     // Define stimuli
     const easy_stimuli = [
-      {question: "How many pages are they in this book?", options: ["there are", "they are"], correct_answer: "there are"},
-      // {question: "The students was studying for the exam.", options: ["students were", "students was"], correct_answer: "students were"},
-      // {question: "She don't like chocolate ice cream.", options: ["She doesn't", "She don't"], correct_answer: "She doesn't"},
-      // {question: "My brother have three children.", options: ["brother has", "brother have"], correct_answer: "brother has"},
-      // {question: "The cats is sleeping on the couch.", options: ["cats are", "cats is"], correct_answer: "cats are"},
-      // {question: "We was invited to the party.", options: ["We were", "We was"], correct_answer: "We were"},
-      // {question: "He don't understand the question.", options: ["He doesn't", "He don't"], correct_answer: "He doesn't"},
-      // {question: "These book belongs to me.", options: ["These books", "These book"], correct_answer: "These books"},
-      // {question: "She have been working here since 2010.", options: ["She has", "She have"], correct_answer: "She has"},
-      // {question: "The children is playing in the park.", options: ["children are", "children is"], correct_answer: "children are"},
-      // {question: "He don't know the answer.", options: ["He doesn't", "He don't"], correct_answer: "He doesn't"},
-      // {question: "This apples are delicious.", options: ["These apples", "This apples"], correct_answer: "These apples"}
+      { question: "All Mrs. Dee's pets are parrots except one and all her pets are dogs except one. How many pets does she have?", options: ["2", "1"], answer: "2" },
+      { question: "What is three days after the day after the day before yesterday?", options: ["Tomorrow", "Day after tomorrow"], answer: "Day after tomorrow" },
+      { question: "If it takes 15 minutes to boil one egg, how long will it take to boil five eggs?", options: ["15 minutes", "1 hour and 15 minutes"], answer: "15 minutes" },
+      { question: "Ann is an aspiring author and writes blogs. She writes 10 hours a day for 3 straight consecutive days and then rests on the following day. During one particular week, she wrote on Thursday, Friday, and Saturday. Did she write on her blog the Wednesday of this same week?", options: ["True", "False"], answer: "False" },
+      { question: "There are rabbits in a drawer. Each rabbit is in a corner, and each rabbit sees three rabbits. Do you know how many rabbits are there?", options: ["4", "3"], answer: "4" },
+      { question: "I was 8 on my last birthday and I will be 10 on my next birthday. Can this statement be true?", options: ["True", "False"], answer: "True" },
+      { question: "I had twenty-four hens, all but eleven died, how many hens am I left with?", options: ["13", "11"], answer: "11" },
+      { question: "Suppose eight kids take 8 minutes to eat eight chocolates. How many minutes would it take three kids to eat three chocolates?", options: ["3", "8"], answer: "8" },
+      { question: "A rat takes an hour and a half to crawl clockwise around a certain maze. When he crawls anti-clockwise around that same maze, it takes him only ninety minutes. Why is this difference?", options: ["Rats are good at crawling", "There is no difference"], answer: "There is no difference" },
+      { question: "If \"kho-kho\" is \"soccer”, \"soccer\" is \"korfball”, \"korfball\" is \"badminton”, \"badminton\" is \"long jump\" and \"long jump\" is \"kho-kho\", then to which game is FIFA associated?", options: ["Korfball", "Kho-kho"], answer: "Korfball" },
+      { question: "A road contains 100 bungalows. A painter is called to number the houses from 1 to 100 Without using pencil and paper, can you figure out how many 9s he needs to make?", options: ["20", "19"], answer: "20" },
+      { question: "Assume that published books are classified as novels, short stories, or storybooks according to the following classification: A novel has at least 400 pages. A short story has at most 200 pages. A storybook has at most 600 pages. What can we say about a book that has 500 pages?", options: ["Novel", "Novel or storybook"], answer: "Novel or storybook" },
     ];
 
     const hard_stimuli = [
-      {question: "How many animals of each kind did Moses take on the Ark?", options: ["None, it was Noah", "Two"], correct_answer: "None, it was Noah"},
-      // {question: "After a plane crash, where should the survivors be buried?", options: ["Nowhere, survivors are alive", "In their hometown"], correct_answer: "Nowhere, survivors are alive"},
-      // {question: "Can a man marry his widow's sister?", options: ["No, he's dead", "Yes"], correct_answer: "No, he's dead"},
-      // {question: "How many pennies are in a dozen if each penny is worth two cents?", options: ["12 pennies", "6 pennies"], correct_answer: "12 pennies"},
-      // {question: "What was the color of George Washington's white horse?", options: ["White", "It's a trick question"], correct_answer: "White"},
-      // {question: "If a doctor gives you three pills and tells you to take one pill every half hour, how long would it take to finish all the pills?", options: ["1 hour", "1.5 hours"], correct_answer: "1 hour"},
-      // {question: "A farmer had 17 sheep. All but 9 died. How many sheep are left?", options: ["9", "8"], correct_answer: "9"},
-      // {question: "Some months have 31 days, others have 30 days. How many have 28 days?", options: ["All of them", "Only February"], correct_answer: "All of them"},
-      // {question: "If there are 3 apples and you take away 2, how many apples do you have?", options: ["2", "1"], correct_answer: "2"},
-      // {question: "Is it legal for a man to marry his widow's sister?", options: ["No, he's dead", "Yes"], correct_answer: "No, he's dead"},
-      // {question: "Which weighs more: a pound of feathers or a pound of gold?", options: ["They weigh the same", "A pound of gold"], correct_answer: "They weigh the same"},
-      // {question: "Two fathers and two sons went fishing. They caught 3 fish in total, which was enough for each person to have one fish. How is this possible?", options: ["There were 3 people", "There were 4 people"], correct_answer: "There were 3 people"}
+      { question: "Two people played cards for money. The loser had to give 1$ for every game they played. When the game was finished, one person had won three games while the other person had a profit of 3$. How many individual games did they play?", options: ["6", "9"], answer: "9" },
+      { question: "On an Island, There are two types of people, knights (always tell the truth) and knaves (always lie). X says: 'Y is a knight, and I am a knight.' Y says: 'X is a knave or I am a knave.' Which of the following options is correct?", options: ["X is a knave and Y is a knight", "X is a knight and Y is a knave"], answer: "X is a knave and Y is a knight" },
+      { question: "Shriya asked her Grandmother how old she was. She replied: 'I have five children, and there is five years of gap between each one and the next. I had my first child i.e., your father when I was 20. Now the youngest one i.e., your Aunt is 20 herself. That's all I'm telling you!' How old is Shriya's Grandmother?", options: ["40", "60"], answer: "60" },
+      { question: "Mohan builds a house with all 4 sides facing south. A bear walks past the house. What colour is the bear?", options: ["Black", "White"], answer: "White" },
+      { question: "There are five children, among which 4 are boys and 1 girl. Only one child among them lies and rest speak the truth. The 1st child says: “ I am a boy”. The 2nd child says: “I am a girl”. The 3rd child says: “First child is lying and the second child is truthful”. The 4th child says: “One of us is not a boy”. The 5th child says: “ The first child is a boy”. Who is the liar?", options: ["3rd", "1st"], answer: "3rd" },
+      { question: "George says: “The cow is not black.” Mike says: “The cow is either brown or white” Lily says: “The cow is brown” At least one of them is telling the truth and at least one of them is lying. If the colour of the cow is either black or brown or white then what is the colour of the cow?", options: ["Brown", "White"], answer: "White" },
+      { question: "You reach a fork in a road: one path leads to Knight street while the other leads to Knave street. You encounter a man who you know is either from Knight street or Knave street. If he is from Knight street, he will tell the truth, and if he is from Knave street, he will lie. What question will make you identify which city is which?", options: ["Which street is that way?", "Which way is your home?"], answer: "Which way is your home?" },
+      { question: "In a 400 meters race run between Neel and David, Neel beats David by 20 meters. When David and Sharon run the same lap, David beats Sharon by 40 meters. What happens when runners Neel and Sharon run the lap? Assume that each runner maintained constant speed during their sprint.", options: ["Neel beats Sharon by less than 60 meters", "Neel beats Sharon by more than 60 meters"], answer: "Neel beats Sharon by less than 60 meters" },
+      { question: "There are 16 secret agents who each know a different piece of secret information. If they can telephone each other and exchange all the information they know. What is the minimum number of calls required such that at least one of the secret agents will get to know all pieces of information?", options: ["14", "15"], answer: "15" },
+      { question: "One thousand boxes are in a single row, and a precious pearl is hidden inside one of them. You don't know which box has the pearl. All the boxes have the same message written on them: 'The pearl is either inside the left box or inside the right box'. Only one of these boxes is telling the truth. What is the minimum number of boxes you need to open to be sure about which box contains the pearl?", options: ["2", "1"], answer: "1" },
+      { question: "Alex visits his brother Peter who stays with their father Quenton, mother Sierra, and grandfather Rocky. Peter has two children, Becky and Charlie. Becky’s husband is Xylo and Charlie’s wife is Yanky. Charlie’s son Tango welcomes Alex on his visit. How is Becky related to Quenton?", options: ["Niece", "Grand-daughter"], answer: "Grand-daughter" },
+      { question: "Raj was looking at a photo. Someone asked him: 'Whose picture are you looking at?' He replied: 'I don't have any brother or sister, but this man's father is my father's son.' So, whose picture was Raj looking at?", options: ["His son's", "His own"], answer: "His son's" }
     ];
 
     // Create practice trials
     const practice_stimuli = [
-      {question: "The children plays in the garden.", options: ["children play", "children plays"], correct_answer: "children play"},
-      {question: "What was President Lincoln's middle name?", options: ["He didn't have one", "Abraham"], correct_answer: "He didn't have one"}
+      {question: "A newborn has black cheeks, black eyes, black hands, black ears, black feet and so on. What color are his teeth?", options: ["White", "He has no teeth"], correct_answer: "White"},
+      {question: "On Moses' ark there are 2 animals per species. Given that the species are 999, how many animals are there in total?", options: ["1998", "Noah, not Moses"], correct_answer: "1998"}
     ];
 
     // Add additional instructions about keyboard responses
     const instructions = {
       type: jsPsychInstructions,
       pages: [
-        "<h1>Welcome to the Grammatical Illusions Experiment</h1>" +
-        "<p>In this study, you will be presented with a series of general knowledge questions, some of which may contain misleading wording.</p>" +
+        "<h1>Welcome to the Cognitive experiment.</h1>" +
+        "<p>In this study, you will be presented with a series of logic questions.</p>" +
         "<p>Your task is to select the correct answer from two options and then rate how confident you are in your answer.</p>",
         
         "<h1>Consent</h1>" +
-        "<p>This experiment has been approved by the Ethics Committee." +
-        "<p>No harm will come to you from taking part in this experiment. You have the right to stop at any time." +
-        "<p>Thank you for agreeing to take part in this experiment! Before we continue, we need your consent to the following:" +
+        "<p>This experiment has been reviewed and meets the standards of the University's Ethics policies." +
+        "<p>You have the right to stop the experiment at any time. The experiment will not take longer than 10 minutes to complete." +
+        "<p>The experiment will have no harmful effects." +
+        "<p>Your response is anonymous, and personal data will not be recorded or stored in any way." +
+        "<p>Thank you for agreeing to take part in this experiment! Before we continue, we need you to consent to the following:" +
         "<ol>"+
         "<li>I consent to performing the task online</li>" +
-        "<li>I understand and consent to my responses are being recorded and stored securely in a database</li>" +
-        "<li>I understand and consent to my responses may be used anonymously for secondary research in the future</li>"+
+        "<li>I understand and consent to my responses being recorded and stored securely in a database</li>" +
+        "<li>I understand and consent to my responses being potentially used anonymously for secondary research in the future</li>"+
         "</ol>"+
         "You agree to these terms by clicking Next",
 
@@ -136,7 +138,7 @@
         "<li>Press 'F' for the left option or 'K' for the right option</li>" +
         "<li>Rate your confidence in your answer on a scale from 0 (completely unsure) to 100 (completely sure)</li>" +
         "</ol>" +
-        (time_pressure ? "<p><strong>Important: You will have only 4 seconds to respond to each question!</strong></p>" : "<p><strong>Important: You will have only 10 seconds to respond to each question!</strong></p>"),
+        (time_pressure ? "<p><strong>Important: You will have only 10 seconds to respond to each question!</strong></p>" : "<p><strong>Important: You will have only 20 seconds to respond to each question!</strong></p>"),
         
         "<h1>Let's Begin</h1>" +
         "<p>We'll start with a few practice questions to get you familiar with the task.</p>" +
@@ -155,15 +157,17 @@
           const rightOption = stimulus.options[1];
           
           return `
-            <div class="question">${stimulus.question}</div>
-            <div style="display: flex; justify-content: space-around; margin-top: 30px; margin-bottom: 30px;">
-              <div style="text-align: center; border-style: dashed; border-width: 2px; border-color: #000000; margin: 5px; padding: 5px;">
-                <span style="font-size: 24px; font-weight: bold;">${leftOption}</span>
-                <p style="margin-top: 10px; font-size: 18px;">Press 'F'</p>
-              </div>
-              <div style="text-align: center; border-style: dashed; border-width: 2px; border-color: #000000; margin: 5px; padding: 5px;">
-                <span style="font-size: 24px; font-weight: bold;">${rightOption}</span>
-                <p style="margin-top: 10px; font-size: 18px;">Press 'K'</p>
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh;">
+              <div class="question" style="text-align: center;">${stimulus.question}</div>
+              <div style="display: flex; justify-content: center; margin-top: 30px; margin-bottom: 30px; gap: 40px;">
+                <div style="text-align: center; border-style: dashed; border-width: 2px; border-color: #000000; margin: 5px; padding: 5px; min-width: 120px;">
+                  <span style="font-size: 24px; font-weight: bold;">${leftOption}</span>
+                  <p style="margin-top: 10px; font-size: 18px;">Press 'F'</p>
+                </div>
+                <div style="text-align: center; border-style: dashed; border-width: 2px; border-color: #000000; margin: 5px; padding: 5px; min-width: 120px;">
+                  <span style="font-size: 24px; font-weight: bold;">${rightOption}</span>
+                  <p style="margin-top: 10px; font-size: 18px;">Press 'K'</p>
+                </div>
               </div>
             </div>
           `;
@@ -186,17 +190,29 @@
         trial_duration: time_limit,
         on_load: function() {
           if (time_limit) {
-            // Display countdown timer
+            // Display countdown timer centered in the middle
             let timeLeft = Math.floor(time_limit / 1000);
             const timerDiv = document.createElement("div");
             timerDiv.id = "timer";
-            timerDiv.style = "position: absolute; top: 20px; right: 20px; font-size: 24px; color: red;";
+            timerDiv.style = `
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translateX(-50%);
+              font-size: 32px;
+              color: red;
+              font-weight: bold;
+              background: rgba(255,255,255,0.8);
+              padding: 8px 24px;
+              border-radius: 10px;
+              z-index: 1000;
+            `;
             document.querySelector(".jspsych-content").appendChild(timerDiv);
-            
+
             const countdownInterval = setInterval(function() {
               if (timeLeft <= 0) {
-                clearInterval(countdownInterval);
-                return;
+              clearInterval(countdownInterval);
+              return;
               }
               timerDiv.textContent = timeLeft + "s";
               timeLeft -= 1;
@@ -246,7 +262,7 @@
       type: jsPsychHtmlKeyboardResponse,
       stimulus: "<p>Practice complete! Now we'll begin the main experiment.</p>" +
                 "<p>Remember to read each question carefully.</p>" +
-                (time_pressure ? "<p><strong>You'll have 4 seconds to respond to each question.</strong></p>" : "<p><strong>You'll have 10 seconds to respond to each question.</strong></p>") +
+                (time_pressure ? "<p><strong>You'll have 20 seconds to respond to each question.</strong></p>" : "<p><strong>You'll have 40 seconds to respond to each question.</strong></p>") +
                 "<p>Press any key to continue.</p>"
     });
 
@@ -279,12 +295,8 @@
       type: jsPsychHtmlKeyboardResponse,
       stimulus: `
         <h1>Study Debriefing</h1>
-        <p>Thank you for participating in our study on grammatical illusions.</p>
-        <p>Grammatical illusions occur when our brain processes language in a way that allows errors to go unnoticed. 
-        A classic example is the question "How many animals of each kind did Moses take on the Ark?" 
-        Many people answer "two" without noticing that it was Noah, not Moses, who built the ark in the biblical story.</p>
-        <p>This study investigated how time pressure affects our susceptibility to these illusions and the relationship between 
-        our confidence in our answers and our accuracy.</p>
+        <p>Thank you for partecipating in this study. We investigated how time pressure affects the confidence-accuracy gap in regards to cognitive tasks.</p>
+        <p>To this end, each partecipant is randomly assigned either a lower or higher time to complete the tasks.</p>
         <p>You were in the <strong>${time_pressure ? "high time pressure" : "low time pressure"}</strong> group.</p>
         <p>Press any key to end the experiment. Thank you!</p>
       `,
