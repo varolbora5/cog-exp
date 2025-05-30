@@ -33,38 +33,22 @@
   <body></body>
   <script>
     // Initialize jsPsych
-    const jsPsych = initJsPsych({
-      on_finish: function() {
-        // Get the data from jsPsych
-        jsPsych.data.addProperties({"time_limit": time_pressure})
-        const experimentData = jsPsych.data.get().json();
-        // Send data to server
-        fetch('/submit-data', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: experimentData,
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Success:', data);
-          // Still display the data for debugging (you can remove this in production)
-          jsPsych.data.displayData();
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-          alert('There was an error submitting your data. Please contact the researcher.');
-          // Still display the data so it's not lost
-          jsPsych.data.displayData();
-        });
-      }
-    });
+    const jsPsych = initJsPsych();
 
     // Randomly assign participant to time pressure or no time pressure
     const time_pressure = Math.random() < 0.5;
-    const time_limit = time_pressure ? 20000 : 40000; // 10 seconds for time pressure condition
+    const time_limit = function(lenght) {
+      return (lenght / 200) * 60 > 20 ? (lenght / 200) * 60 * (time_pressure ? 1:2) : 20 * (time_pressure ? 1:2)
+    }; // 10 seconds for time pressure condition
 
+    function countWords(str) {
+      // Handle empty input or strings with only whitespace
+      if (!str || !str.trim()) return 0;
+
+      // Match all sequences of non-whitespace characters
+      const words = str.trim().match(/\S+/g);
+      return words ? words.length : 0;
+    }
     // Define stimuli
     const easy_stimuli = [
       { question: "All Mrs. Dee's pets are parrots except one and all her pets are dogs except one. How many pets does she have?", options: ["2", "1"], answer: "2" },
@@ -147,8 +131,8 @@
         "<li>You can also press the buttons on screen to answer on mobile devices</li>"+
         "<li>Rate your confidence in your answer on a scale from 0 (completely unsure) to 100 (completely sure)</li>" +
         "</ol>" +
-        (time_pressure ? "<p><strong>Important: You will have only 20 seconds to respond to each question!</strong></p>" : "<p><strong>Important: You will have only 40 seconds to respond to each question!</strong></p>"),
-        
+        "<p><strong>Important: You will have a time limit based on the length of the questions!</strong></p>",       
+
         "<h1>Let's Begin</h1>" +
         "<p>We'll start with a few practice questions to get you familiar with the task.</p>" +
         "<p>Press 'Next' to continue.</p>"
@@ -189,11 +173,10 @@
             stimulus.options[data.response] === stimulus.answer;
           data.missed = data.response === null;
         },
-        trial_duration: time_limit,
+        trial_duration: time_limit * 1000,
         on_load: function() {
-          if (time_limit) {
             // Display countdown timer centered in the middle
-            let timeLeft = Math.floor(time_limit / 1000);
+            let timeLeft = Math.floor(time_limit(countWords(stimulus.question)));
             const timerDiv = document.createElement("div");
             timerDiv.id = "timer";
             // timerDiv.style = `
@@ -236,7 +219,6 @@
               timerDiv.textContent = timeLeft + "s";
               timeLeft -= 1;
             }, 1000);
-          }
         }
       };
     }
@@ -342,7 +324,30 @@
         <p>You were in the <strong>${time_pressure ? "high time pressure" : "low time pressure"}</strong> group.</p>
         <p>Press any key to end the experiment. Thank you!</p>
       `,
-      post_trial_gap: 2000
+      post_trial_gap: 2000,
+      on_load: function() {
+        // Get the data from jsPsych
+        jsPsych.data.addProperties({"time_limit": time_pressure})
+        const experimentData = jsPsych.data.get().json();
+        // Send data to server
+        fetch('/submit-data', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: experimentData,
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          // Still display the data for debugging (you can remove this in production)
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('There was an error submitting your data. Please contact the researcher.');
+          // Still display the data so it's not lost
+        });
+      }
     };
 
     // Create timeline
