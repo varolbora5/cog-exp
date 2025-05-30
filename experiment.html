@@ -173,7 +173,7 @@
             stimulus.options[data.response] === stimulus.answer;
           data.missed = data.response === null;
         },
-        trial_duration: time_limit * 1000,
+        trial_duration: time_limit(countWords(stimulus.question)) * 1000,
         on_load: function() {
             // Display countdown timer centered in the middle
             let timeLeft = Math.floor(time_limit(countWords(stimulus.question)));
