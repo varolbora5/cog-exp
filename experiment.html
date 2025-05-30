@@ -38,7 +38,7 @@
     // Randomly assign participant to time pressure or no time pressure
     const time_pressure = Math.random() < 0.5;
     const time_limit = function(lenght) {
-      return (lenght / 200) * 60 > 20 ? (lenght / 200) * 60 * (time_pressure ? 1:2) : 20 * (time_pressure ? 1:2)
+      return (lenght / 100) * 60 > 20 ? (lenght / 100) * 60 * (time_pressure ? 1:2) : 20 * (time_pressure ? 1:2)
     }; // 10 seconds for time pressure condition
 
     function countWords(str) {
