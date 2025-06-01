@@ -38,11 +38,13 @@
     // Randomly assign participant to time pressure or no time pressure
     const time_pressure = Math.random() < 0.5;
     const time_limit = function(length) {
-      const readingTimeSec = (length / 100) * 60; // based on 200 WPM = 0.3 sec/word
-      const thinkingTimeSec = time_pressure ? 5 : 15; // less time to think under pressure
+      const readingTimeSec = (length / 100) * 60; 
+      const thinkingTimeSec = time_pressure ? 5 : 20; 
       const totalTimeSec = readingTimeSec + thinkingTimeSec;
-      return totalTimeSec //
-    }; // 10 seconds for time pressure condition
+      const roundedTotalTimeSec = Math.round(totalTimeSec / 5) * 5; // Round to nearest 5 seconds
+      return roundedTotalTimeSec //
+      //return totalTimeSec
+    };
 
     function countWords(str) {
       // Handle empty input or strings with only whitespace
