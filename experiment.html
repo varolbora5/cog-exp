@@ -33,7 +33,33 @@
   <body></body>
   <script>
     // Initialize jsPsych
-    const jsPsych = initJsPsych();
+    const jsPsych = initJsPsych({
+      on_finish: function() {
+        // Get the data from jsPsych
+        jsPsych.data.addProperties({"time_limit": time_pressure})
+        const experimentData = jsPsych.data.get().json();
+        // Send data to server
+        fetch('/submit-data', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: experimentData,
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          // Still display the data for debugging (you can remove this in production)
+          jsPsych.data.displayData();
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('There was an error submitting your data. Please contact the researcher.');
+          // Still display the data so it's not lost
+          jsPsych.data.displayData();
+        });
+      }
+    });
 
     // Randomly assign participant to time pressure or no time pressure
     const time_pressure = Math.random() < 0.5;
