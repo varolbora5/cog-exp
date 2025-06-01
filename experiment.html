@@ -178,6 +178,7 @@
           data.correct = data.response !== null &&
             stimulus.options[data.response] === stimulus.answer;
           data.missed = data.response === null;
+          data.time_limit_amount = time_limit(countWords(stimulus.question))
         },
         trial_duration: time_limit(countWords(stimulus.question)) * 1000,
         on_load: function() {
