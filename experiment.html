@@ -39,9 +39,14 @@
 
     // Randomly assign participant to time pressure or no time pressure
     const time_pressure = Math.random() < 0.5;
-    const time_limit = function(lenght) {
-      return (lenght / 75) * 60 > 20 ? (lenght / 75) * 60 * (time_pressure ? 1:2) : 20 * (time_pressure ? 1:2)
-    }; // 10 seconds for time pressure condition
+    const time_limit = function(length) {
+      const readingTimeSec = (length / 100) * 60; 
+      const thinkingTimeSec = time_pressure ? 5 : 20; 
+      const totalTimeSec = readingTimeSec + thinkingTimeSec;
+      const roundedTotalTimeSec = Math.round(totalTimeSec / 5) * 5; // Round to nearest 5 seconds
+      return roundedTotalTimeSec //
+      //return totalTimeSec
+    };
 
     function countWords(str) {
       // Handle empty input or strings with only whitespace
@@ -272,7 +277,7 @@
       type: jsPsychInstructions,
       pages: ["<p>Practice complete! Now we'll begin the main experiment.</p>" +
                 "<p>Remember to read each question carefully.</p>" +
-                (time_pressure ? "<p><strong>You'll have 20 seconds to respond to each question.</strong></p>" : "<p><strong>You'll have 40 seconds to respond to each question.</strong></p>")
+                "<p>You'll have a variable amount of time to respond to each question based on its length.</p>"
                 ],
       show_clickable_nav: true
     });
