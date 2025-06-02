@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -39,7 +40,7 @@
     // Randomly assign participant to time pressure or no time pressure
     const time_pressure = Math.random() < 0.5;
     const time_limit = function(length) {
-      const readingTimeSec = (length / 100) * 60; 
+      const readingTimeSec = (length / 250) * 60; 
       const thinkingTimeSec = time_pressure ? 5 : 20; 
       const totalTimeSec = readingTimeSec + thinkingTimeSec;
       const roundedTotalTimeSec = Math.round(totalTimeSec / 5) * 5; // Round to nearest 5 seconds
@@ -55,7 +56,7 @@
       const words = str.trim().match(/\S+/g);
       return words ? words.length : 0;
     }
-    // Define stimuli
+        // Define stimuli
     const easy_stimuli = [
       { question: "All Mrs. Dee's pets are parrots except one and all her pets are dogs except one. How many pets does she have?", options: ["2", "1"], answer: "2" },
       { question: "What is three days after the day after the day before yesterday?", options: ["Tomorrow", "Day after tomorrow"], answer: "Day after tomorrow" },
@@ -89,7 +90,7 @@
     // Create practice trials
     const practice_stimuli = [
       {question: "A husband and wife have 4 daughters and each daughter has 2 brothers. How many people are there in the family?", options: ["10", "8"], answer: "8"},
-      {question: "There are two ducks in front of a duck, two ducks behind a duck and a duck in the middle. How many ducks are there?", options: ["3", "4"], answer: "Three"}
+      {question: "There are two ducks in front of a duck, two ducks behind a duck and a duck in the middle. How many ducks are there?", options: ["3", "4"], answer: "3"}
     ];
 
     // Add additional instructions about keyboard responses
@@ -186,28 +187,15 @@
             let timeLeft = Math.floor(time_limit(countWords(stimulus.question)));
             const timerDiv = document.createElement("div");
             timerDiv.id = "timer";
-            // timerDiv.style = `
-            //   position: absolute;
-            //   top: 50%;
-            //   left: 50%;
-            //   transform: translateX(-50%);
-            //   font-size: 32px;
-            //   color: red;
-            //   font-weight: bold;
-            //   background: rgba(255,255,255,0.8);
-            //   padding: 8px 24px;
-            //   border-radius: 10px;
-            //   z-index: 1000;
-            // `;
             timerDiv.style = `
-              aling-items: center;
+              align-items: center;
               justify-content: center;
               font-size: 32px;
               color: red;
               font-weight: bold;
               background: rgba(255,255,255,0.8);
               border-radius: 10px;
-            `
+            `;
             document.querySelector(".question-container").appendChild(timerDiv);
 
             document.addEventListener("keydown", function(event) {
@@ -218,13 +206,19 @@
               }
             }, {once: true});
 
+            // Initialize timer display
+            timerDiv.textContent = timeLeft + "s";
+
             const countdownInterval = setInterval(function() {
-              if (timeLeft <= 0) {
-              clearInterval(countdownInterval);
-              return;
-              }
-              timerDiv.textContent = timeLeft + "s";
               timeLeft -= 1;
+              
+              if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                timerDiv.textContent = "0s";
+                return;
+              }
+              
+              timerDiv.textContent = timeLeft + "s";
             }, 1000);
         }
       };
@@ -261,8 +255,8 @@
             }
             }, { once: true });
           }
-        }
-      };
+        };
+    }
 
     // Create practice trial timeline
     const practice_trials = [];
