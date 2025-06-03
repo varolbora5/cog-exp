@@ -38,7 +38,8 @@
     const jsPsych = initJsPsych();
 
     // Randomly assign participant to time pressure or no time pressure
-    const time_pressure = Math.random() < 0.5;
+    // const time_pressure = Math.random() < 0.5;            //    DISABLED FOR NOW
+    const time_pressure = 1                                  //    ALWAYS HIGH PRESSURE
     const time_limit = function(length) {
       const readingTimeSec = (length / 250) * 60; 
       const thinkingTimeSec = time_pressure ? 5 : 20; 
