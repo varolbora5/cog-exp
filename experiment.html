@@ -32,17 +32,18 @@
     </style>
   </head>
   <body>
+    <h1>Experimentation Over</h1>
   </body>
   <script>
     // Initialize jsPsych
-    const jsPsych = initJsPsych();
+    // const jsPsych = initJsPsych();
 
     // Randomly assign participant to time pressure or no time pressure
     // const time_pressure = Math.random() < 0.5;            //    DISABLED FOR NOW
     const time_pressure = 1                                  //    ALWAYS HIGH PRESSURE
     const time_limit = function(length) {
-      const readingTimeSec = (length / 250) * 60; 
-      const thinkingTimeSec = time_pressure ? 5 : 20; 
+      const readingTimeSec = (length / 250) * 60;
+      const thinkingTimeSec = time_pressure ? 5 : 20;
       const totalTimeSec = readingTimeSec + thinkingTimeSec;
       const roundedTotalTimeSec = Math.round(totalTimeSec / 5) * 5; // Round to nearest 5 seconds
       return roundedTotalTimeSec //
@@ -101,7 +102,7 @@
         "<h1>Welcome to the Cognitive experiment.</h1>" +
         "<p>In this study, you will be presented with a series of logic questions.</p>" +
         "<p>Your task is to select the correct answer from two options and then rate how confident you are in your answer.</p>",
-        
+
         "<h1>Informed Consent Form</h1>" +
         "<p>This study complies with the declaration of Helsinky." +
         "<p>Participation involves answering to some logic questions." +
@@ -130,7 +131,7 @@
         "  </div>" +
         "</div>" +
         "<p>After selecting your answer, you'll rate your confidence using a slider.</p>",
-        
+
         "<h1>Procedure</h1>" +
         "<p>For each question, you will:</p>" +
         "<ol>" +
@@ -139,7 +140,7 @@
         "<li>You can also press the buttons on screen to answer on mobile devices</li>"+
         "<li>Rate your confidence in your answer on a scale from 0 (completely unsure) to 100 (completely sure)</li>" +
         "</ol>" +
-        "<p><strong>Important: You will have a time limit based on the length of the questions!</strong></p>",       
+        "<p><strong>Important: You will have a time limit based on the length of the questions!</strong></p>",
 
         "<h1>Let's Begin</h1>" +
         "<p>We'll start with a few practice questions to get you familiar with the task.</p>" +
@@ -156,7 +157,7 @@
           // Determine which option should be shown on the left and right
           const leftOption = stimulus.options[0];
           const rightOption = stimulus.options[1];
-          
+
           return `
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 50vh;" class="question-container">
               <div class="question" style="text-align: center;">${stimulus.question}</div>
@@ -212,13 +213,13 @@
 
             const countdownInterval = setInterval(function() {
               timeLeft -= 1;
-              
+
               if (timeLeft <= 0) {
                 clearInterval(countdownInterval);
                 timerDiv.textContent = "0s";
                 return;
               }
-              
+
               timerDiv.textContent = timeLeft + "s";
             }, 1000);
         }
